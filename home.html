@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+
+{% block content %}
+<body>
+    {% if token %}
+        <h2 style="text-align:center">Successfully Connected to Spotify!</h2>
+        <h3 style="text-align:center"><a href="http://localhost:5000/watchvideo">Watch Video</a></h3>
+
+
+    {% else %}
+        <h2 style="text-align:center">Please connect your Spotify account below:</h2>
+        <h3 style="text-align:center"><a href="http://localhost:5000/authorize">Connect</a></h3>
+        <br>
+        <p style="text-align:center">This web application uses Spotify and YouTube APIs to access your</p>
+        <p style="text-align:center">currently playing track on Spotify, and then displays the top YouTube</p>
+        <p style="text-align:center">search result for this track, which is often the music video associated</p>
+        <p style="text-align:center">with this song. To use this application, click the link above to authorize</p>
+        <p style="text-align:center">the application to access your Spotify account. Happy listening!</p>
+    {% endif %}
+</body>
+{% endblock %}

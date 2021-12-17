@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% block content %}
+<body><center>
+    <h1 >{{ query }}</h1>
+    <iframe width="1280" height="720"
+        src= "https://www.youtube.com/embed/{{ videoId }}?start={{progress}}&autoplay=1&mute=1"
+        allowfullscreen>
+    </iframe>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        setInterval(async function(){
+            const response = await fetch(
+                'https://api.spotify.com/v1/me/player/currently-playing', {
+                method: 'GET',
+                headers: {
+                    "Authorization": "{{ token['token_type'] }} {{ token['access_token'] }}"
+                }
+            });
+            const data = await response.json();
+            const current = data['item']['name'];
+            const old = "{{ name }}".replaceAll('&amp;', '&').replaceAll('&#39;', '\'').replaceAll('&lt;', '<').replaceAll(
+            '&gt;', '>');
+            console.log(old);
+            console.log(current);
+            if (current != old) {
+                window.location.reload();
+            }
+
+        }, 2000);
+    </script>
+</body></center>
+{% endblock %}
